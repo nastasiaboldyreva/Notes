@@ -1,0 +1,18 @@
+package com.asboldyreva.android.notesmvvm.screens.add_new_note
+
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.asboldyreva.android.notesmvvm.model.AppNote
+import com.asboldyreva.android.notesmvvm.utilits.REPOSITORY
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class AddNewNoteViewModel(application: Application): AndroidViewModel(application) {
+    fun insert(note: AppNote, onSuccess:()->Unit) =
+        viewModelScope.launch(Dispatchers.IO) {
+            REPOSITORY.insert(note) {
+                onSuccess()
+            }
+        }
+}
